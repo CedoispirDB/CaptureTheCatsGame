@@ -22,8 +22,8 @@ var container;
 
 var catSize = 70;
 var catFrame = 1;
-var catWidth;
-var catHeight;
+var catWidth = 175;
+var catHeight = 191;
 
 
 
@@ -76,16 +76,15 @@ function initGame() {
     });
 
     // Set up the cats
-    for (var i = 0; i < numberOfCats; i++) {
-        cat.push(new Cat());
-    }
+    // for (var i = 0; i < numberOfCats; i++) {
+    //     cat.push(new Cat());
+    // }
     // cat.push(new Cat());
-    setInterval(animate, 1000/300)
+    setInterval(animateCat, 1000/300)
 }
 
 // Animate the cat walking around
-function animate() {
-    console.log(`x: ${mouseX}`, `y: ${mouseY}`);
+function animateCat() {
 
     ctx.clearRect(0, 0, windowWidth, windowHeight)
 
@@ -123,8 +122,7 @@ function animate() {
 }
 
 // Cat Object 
-catWidth = 175;
-catHeight = 191;
+
 function Cat() {
     
     // Set the cat's width and height
@@ -147,7 +145,7 @@ function Cat() {
     // Draw the cat 
     this.update = function () {
         if (this.dx < 0){
-            ctx.drawImage(this.image, catFrame * catWidth, 0, 
+            draw(this.image, catFrame * catWidth, 0, 
                             catWidth, catHeight,
                             this.x, this.y,
                             this.enemyWidth, this.enemyHeight);
@@ -157,7 +155,7 @@ function Cat() {
                 catFrame = 1;
             }
         } else if (this.dx > 0) {
-            ctx.drawImage(this.image, catFrame * catWidth, 191, 
+            draw(this.image, catFrame * catWidth, 191, 
                 catWidth, catHeight,
                 this.x, this.y,
                 this.enemyWidth, this.enemyHeight);
@@ -235,4 +233,12 @@ function giveYPOS (height) {
         return pos;
     }
 
+}
+
+// Draw image on canvas
+function draw(src, imgX, imgY, imgWidth, imgHeight, objX , objY , objWidth, objHeigth) {
+    ctx.drawImage(src, imgX, imgY, 
+        imgWidth, imgHeight,
+        objX, objY,
+        objWidth, objHeigth);
 }

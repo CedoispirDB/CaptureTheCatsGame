@@ -1,0 +1,111 @@
+:root {
+    --left: 42%;
+    --width: 20%;
+    --heigth: 10%;
+}
+
+
+body {
+    background-color: white;
+    overflow: hidden;
+    background-image: url("Images/grass.png")
+
+}
+
+
+h1 {
+    color: white;
+	background-color: #992c2c;
+	font-size: 4em;
+	text-align: center;
+	text-transform: uppercase;
+	margin: 0;
+    padding: 6px 0;
+    height: 70px;
+    width: 1440px;
+    position: absolute;
+    left: 0px;
+}
+
+#container {
+    width: 900px;
+    margin: 10px auto;
+    color: black;
+    text-align: center;
+    position: fixed;
+    top: 56%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255, 0);
+    height: 600px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+
+}
+
+#playButton {
+	outline: none;
+    color: black;
+    background: white;
+    position: absolute;
+    left: var(--left);
+    width: var(--width);
+    height: var(--heigth);
+    border: 2px solid black;
+    font-size: 1.5em;
+    font-weight: bold;
+    top: 20%;
+    text-align: center;
+}
+
+#helpButton {
+    outline: none;
+    color: black;
+    background: white;
+    position: absolute;
+    left: var(--left);
+    width: var(--width);
+    height: var(--heigth);
+    border: 2px solid black;
+    font-size: 1.5em;
+    font-weight: bold;
+    top: 32%;
+    text-align: center;
+}
+
+#optionsButton {
+    outline: none;
+    color: black;
+    background: white;
+    position: absolute;
+    left: var(--left);
+    width: var(--width);
+    height: var(--heigth);
+    border: 2px solid black;
+    font-size: 1.5em;
+    font-weight: bold;
+    top: 44%;
+    text-align: center;
+}
+
+#storageButton {
+    outline: none;
+    color: black;
+    background: white;
+    position: absolute;
+    left: var(--left);
+    width: var(--width);
+    height: var(--heigth);
+    border: 2px solid black;
+    font-size: 1.5em;
+    font-weight: bold;
+    top: 56%;
+    text-align: center;
+}
+
+#playButton:hover, #helpButton:hover, #optionsButton:hover, #storageButton:hover{
+    background-color: rgb(255,255,255, 0.7);
+	color: black;
+    
+}

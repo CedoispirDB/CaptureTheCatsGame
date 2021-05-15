@@ -18,21 +18,35 @@ var playButton;
 var helpButton;
 var optionsButton;
 var storageButton;
-var container;     
+var container;
 
-var catSize = 70;
+var catSize = 50;
 var catFrame = 1;
+// Image measurements 
 var catWidth = 175;
 var catHeight = 191;
 
+var player;
+var playerSize = 50;
+var playerWidth = 140;
+var playerHeight = 220;
+var playerFrame = 0;
+var playerdxInc = 3;
+var playerdyInc = 3;
 
 
-window.addEventListener("resize" , function () {
+var moveUp;
+var moveDown;
+var moveLeft;
+var moveRight;
+
+
+window.addEventListener("resize", function () {
     canvas.width = window.innerWidth - 15;
     canvas.height = window.innerHeight - 15;
 });
 
-window.onload = function () {    
+window.onload = function () {
     // Set up buttons
     playButton = document.getElementById("playButton");
     helpButton = document.getElementById("helpButton");
@@ -45,6 +59,30 @@ window.onload = function () {
         document.getElementsByTagName("h1")[0].style.display = "none";
         initGame();
     });
+
+    document.onkeydown = function (e) {
+        if (e.key === "w") {
+            moveUp = true;
+        } else if (e.key === "s") {
+            moveDown = true;
+        } else if (e.key === "d") {
+            moveRight = true;
+        } else if (e.key === "a") {
+            moveLeft = true;
+        }
+    }
+
+    document.onkeyup = function (e) {
+        if (e.key === "w") {
+            moveUp = false;
+        } else if (e.key === "s") {
+            moveDown = false;
+        } else if (e.key === "d") {
+            moveRight = false;
+        } else if (e.key === "a") {
+            moveLeft = false;
+        }
+    }
 }
 
 // Initiate the game
@@ -57,12 +95,12 @@ function initGame() {
     windowHeight = window.innerHeight;
     canvas.width = windowWidth - 15;
     canvas.height = windowHeight - 15;
-    document.body.style.backgroundColor = "black"; 
+    document.body.style.backgroundColor = "black";
 
     // Create sound object
     sound = new killSound("Sounds/popSound.mp3");
 
-    canvas.addEventListener(gameControl, function (e){
+    canvas.addEventListener(gameControl, function (e) {
         var cRect = canvas.getBoundingClientRect();
         mouseX = Math.round(e.clientX - cRect.left);
         mouseY = Math.round(e.clientY - cRect.top);
@@ -70,7 +108,7 @@ function initGame() {
 
     })
 
-    canvas.addEventListener('mouseup', function(){ 
+    canvas.addEventListener('mouseup', function () {
         mouseX = 0;
         mouseY = 0;
     });
@@ -79,20 +117,24 @@ function initGame() {
     // for (var i = 0; i < numberOfCats; i++) {
     //     cat.push(new Cat());
     // }
-    // cat.push(new Cat());
-    setInterval(animateCat, 1000/300)
+
+    cat.push(new Cat());
+
+    player = new Player();
+    
+    setInterval(animate, 1000 / 300)
 }
 
-// Animate the cat walking around
-function animateCat() {
+// Animate Canvas 
+function animate() {
 
     ctx.clearRect(0, 0, windowWidth, windowHeight)
-
+    player.update();
     for (var i = 0; i < cat.length; i++) {
         cat[i].update();
 
-        cat[i].x += cat[i].dx;
-        cat[i].y += cat[i].dy;
+        // cat[i].x += cat[i].dx;
+        // cat[i].y += cat[i].dy;
 
         if (cat[i].x + catSize >= windowWidth - 10) {
             cat[i].dx = cat[i].dx * (- 1);
@@ -102,7 +144,7 @@ function animateCat() {
             cat[i].dx = cat[i].dx * (- 1);
         }
 
-        if (cat[i].y  <= 10) {
+        if (cat[i].y <= 10) {
             cat[i].dy = cat[i].dy * (-1);
         }
 
@@ -115,16 +157,51 @@ function animateCat() {
             cat[i].radius += 5;
             cat[i].kill();
             sound.play();
-        
-
         }
+
+        checkCollision(cat[i].x, cat[i].y ,catSize, catSize, player.x, player.y, playerSize, 70)
+        
+    }
+
+
+    player.x += player.dx;
+    player.y += player.dy;
+
+    if (player.x + playerSize >= windowWidth - 10) {
+        player.dx = 0;
+    }
+
+    if (player.x <= 0) {
+        player.dx = 0;
+    }
+
+    if (player.y <= 10) {
+        player.dy = 0;
+    }
+
+    if (player.y + playerSize >= windowHeight - 15) {
+        player.dy = 0;
+    }
+
+    if (moveUp) {
+        player.dy = playerdxInc * (-1);
+    } else if (moveDown) {
+        player.dy = playerdyInc;
+    } else {
+        player.dy = 0;
+    }
+    if (moveRight) {
+        player.dx = playerdxInc;
+    } else if (moveLeft) {
+        player.dx = playerdxInc * (-1);
+    } else {
+        player.dx = 0;
     }
 }
 
 // Cat Object 
-
 function Cat() {
-    
+
     // Set the cat's width and height
     this.enemyWidth = catSize;
     this.enemyHeight = catSize;
@@ -134,37 +211,37 @@ function Cat() {
     this.image.src = "Images/SpriteSheet.png";
 
     // Set the cat's velocity and position
-    this.x = giveXPOS(this.enemyWidth);
-    this.y = giveYPOS(this.enemyHeight);
-    // this.x = 500;
-    // this.y =  300;
+    // this.x = giveXPOS(this.enemyWidth);
+    // this.y = giveYPOS(this.enemyHeight);
+    this.x = 500;
+    this.y =  300;
     this.dx = 1;
     this.dy = 1;
 
-   
+
     // Draw the cat 
     this.update = function () {
-        if (this.dx < 0){
-            draw(this.image, catFrame * catWidth, 0, 
-                            catWidth, catHeight,
-                            this.x, this.y,
-                            this.enemyWidth, this.enemyHeight);
-            if (catFrame < 3) {
-                catFrame ++;
-            } else {
-                catFrame = 1;
-            }
-        } else if (this.dx > 0) {
-            draw(this.image, catFrame * catWidth, 191, 
+        if (this.dx < 0) {
+            draw(this.image, catFrame * catWidth, 0,
                 catWidth, catHeight,
                 this.x, this.y,
                 this.enemyWidth, this.enemyHeight);
             if (catFrame < 3) {
-                catFrame ++;
+                catFrame++;
             } else {
                 catFrame = 1;
             }
-        }   
+        } else if (this.dx > 0) {
+            draw(this.image, catFrame * catWidth, 191,
+                catWidth, catHeight,
+                this.x, this.y,
+                this.enemyWidth, this.enemyHeight);
+            if (catFrame < 3) {
+                catFrame++;
+            } else {
+                catFrame = 1;
+            }
+        }
 
     }
 
@@ -173,6 +250,36 @@ function Cat() {
         cat.splice(cat.indexOf(this), 1);
     }
 
+
+}
+
+// Player Object
+function Player() {
+    this.x = 700;
+    this.y = 200;
+    this.dx = 0;
+    this.dy = 0;
+    
+
+    this.image = new Image();
+    this.image.src = "Images/PlayerSkin.png";
+
+    this.update = function () {
+        draw(this.image, playerFrame * playerWidth, 0,
+            playerWidth, playerHeight,
+            this.x, this.y,
+            playerSize, 70);
+
+
+        if (this.dx !== 0 || this.dy !== 0){
+            if (playerFrame < 2) {
+                playerFrame++;
+            } else {
+                playerFrame = 0;
+            }
+        }
+    
+    }
 
 }
 
@@ -222,7 +329,7 @@ function giveXPOS(width) {
 }
 
 // Give a random y position, avoiding overflow
-function giveYPOS (height) {
+function giveYPOS(height) {
     var pos = Math.random() * windowHeight;
 
     if (pos + height + 10 >= windowHeight) {
@@ -236,9 +343,18 @@ function giveYPOS (height) {
 }
 
 // Draw image on canvas
-function draw(src, imgX, imgY, imgWidth, imgHeight, objX , objY , objWidth, objHeigth) {
-    ctx.drawImage(src, imgX, imgY, 
+function draw(src, imgX, imgY, imgWidth, imgHeight, objX, objY, objWidth, objHeigth) {
+    ctx.drawImage(src, imgX, imgY,
         imgWidth, imgHeight,
         objX, objY,
         objWidth, objHeigth);
+}
+
+function checkCollision(catX, catY, catW, catH, pX, pY, pW, pH) {
+    // console.log(`catX + catW: ${catX + catW}`, `pX: ${pX}`)
+    // console.log(`catX: ${catX}`, `pX + pW: ${pX + pW}`)
+     
+    if (catX + catW >= pX && pX + pW >= catX && catY + catH >= pY & catY <= pY + pH) {
+        console.log("collision");
+    }
 }

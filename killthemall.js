@@ -152,14 +152,14 @@ function animate() {
             cat[i].dy = cat[i].dy * (-1);
         }
 
-        if (mouseX > cat[i].x && mouseX < cat[i].x + catSize &&
-            mouseY > cat[i].y && mouseY < cat[i].y + catSize) {
-            cat[i].radius += 5;
-            cat[i].kill();
-            sound.play();
-        }
+        // if (mouseX > cat[i].x && mouseX < cat[i].x + catSize &&
+        //     mouseY > cat[i].y && mouseY < cat[i].y + catSize) {
+        //     cat[i].radius += 5;
+        //     cat[i].kill();
+        //     sound.play();
+        // }
 
-        checkCollision(cat[i].x, cat[i].y ,catSize, catSize, player.x, player.y, playerSize, 70)
+        checkCollision(cat[i].x, cat[i].y ,catSize, catSize, player.x, player.y, playerSize, 70, cat[i])
         
     }
 
@@ -350,11 +350,12 @@ function draw(src, imgX, imgY, imgWidth, imgHeight, objX, objY, objWidth, objHei
         objWidth, objHeigth);
 }
 
-function checkCollision(catX, catY, catW, catH, pX, pY, pW, pH) {
+function checkCollision(catX, catY, catW, catH, pX, pY, pW, pH, cat) {
     // console.log(`catX + catW: ${catX + catW}`, `pX: ${pX}`)
     // console.log(`catX: ${catX}`, `pX + pW: ${pX + pW}`)
      
     if (catX + catW >= pX && pX + pW >= catX && catY + catH >= pY & catY <= pY + pH) {
-        console.log("collision");
-    }
+        cat.kill();
+        sound.play();
+        }
 }

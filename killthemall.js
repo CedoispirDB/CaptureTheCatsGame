@@ -5,13 +5,14 @@ var ctx;
 var windowWidth;
 var windowHeight;
 
-var cat = [];
+var sound;
+
+// Mouse variables
 var mouseX = 0;
 var mouseY = 0;
-var sound;
 // gameControl = "mousedown" or = "mousemove"
 var gameControl = "mousedown";
-var numberOfCats = 10;
+
 
 // Menu buttons
 var playButton;
@@ -20,12 +21,16 @@ var optionsButton;
 var storageButton;
 var container;
 
+// Cat properties
+var cat = [];
+var numberOfCats = 5;
 var catSize = 50;
 var catFrame = 1;
 // Image measurements 
 var catWidth = 175;
 var catHeight = 191;
 
+// Player properties
 var player;
 var playerSize = 50;
 var playerWidth = 140;
@@ -34,13 +39,13 @@ var playerFrame = 0;
 var playerdxInc = 3;
 var playerdyInc = 3;
 
-
+// Movement booleans 
 var moveUp;
 var moveDown;
 var moveLeft;
 var moveRight;
 
-
+// Resize canvas
 window.addEventListener("resize", function () {
     canvas.width = window.innerWidth - 15;
     canvas.height = window.innerHeight - 15;
@@ -54,12 +59,14 @@ window.onload = function () {
     storageButton = document.getElementById("storageButton");
     container = document.getElementById("container");
 
+    // Playe button iniate the game
     playButton.addEventListener("mousedown", function () {
         container.parentNode.removeChild(container);
         document.getElementsByTagName("h1")[0].style.display = "none";
         initGame();
     });
 
+    // Key input 
     document.onkeydown = function (e) {
         if (e.key === "w" || e.key === "ArrowUp") {
             moveUp = true;
@@ -114,12 +121,12 @@ function initGame() {
     });
 
     // Set up the cats
-    // for (var i = 0; i < numberOfCats; i++) {
-    //     cat.push(new Cat());
-    // }
-
-    cat.push(new Cat());
-
+    for (var i = 0; i < numberOfCats; i++) {
+        cat.push(new Cat());
+    }
+    // cat.push(new Cat());
+    
+    // Create a player
     player = new Player();
     
     setInterval(animate, 1000 / 300)
@@ -129,12 +136,14 @@ function initGame() {
 function animate() {
 
     ctx.clearRect(0, 0, windowWidth, windowHeight)
+
     player.update();
+
     for (var i = 0; i < cat.length; i++) {
         cat[i].update();
 
-        // cat[i].x += cat[i].dx;
-        // cat[i].y += cat[i].dy;
+        cat[i].x += cat[i].dx;
+        cat[i].y += cat[i].dy;
 
         if (cat[i].x + catSize >= windowWidth - 10) {
             cat[i].dx = cat[i].dx * (- 1);
@@ -152,6 +161,8 @@ function animate() {
             cat[i].dy = cat[i].dy * (-1);
         }
 
+        // Kill cats with mouse, future game mode
+
         // if (mouseX > cat[i].x && mouseX < cat[i].x + catSize &&
         //     mouseY > cat[i].y && mouseY < cat[i].y + catSize) {
         //     cat[i].radius += 5;
@@ -163,11 +174,10 @@ function animate() {
         
     }
 
-
+    // Change player velocity
     player.x += player.dx;
     player.y += player.dy;
 
-     
    
     if (moveUp) {
         player.dy = playerdxInc * (-1);
@@ -202,8 +212,6 @@ function animate() {
         player.dy = (player.dy + 3) * -1;
     }
 
-
-
     
     
 }
@@ -220,10 +228,10 @@ function Cat() {
     this.image.src = "Images/SpriteSheet.png";
 
     // Set the cat's velocity and position
-    // this.x = giveXPOS(this.enemyWidth);
-    // this.y = giveYPOS(this.enemyHeight);
-    this.x = 500;
-    this.y =  300;
+    this.x = giveXPOS(this.enemyWidth);
+    this.y = giveYPOS(this.enemyHeight);
+    // this.x = 500;
+    // this.y =  300;
     this.dx = 1;
     this.dy = 1;
 
@@ -264,15 +272,18 @@ function Cat() {
 
 // Player Object
 function Player() {
+
+    // Set player initial position and velocity
     this.x = 700;
     this.y = 200;
     this.dx = 0;
     this.dy = 0;
     
-
+    // Get player image
     this.image = new Image();
     this.image.src = "Images/PlayerSkin.png";
 
+    // Draw player animation
     this.update = function () {
         draw(this.image, playerFrame * playerWidth, 0,
             playerWidth, playerHeight,

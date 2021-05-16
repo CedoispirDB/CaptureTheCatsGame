@@ -278,7 +278,8 @@ function Player() {
                 playerFrame = 0;
             }
         }
-    
+
+
     }
 
 }

@@ -96,7 +96,7 @@ function initGame() {
     canvas.width = windowWidth - 15;
     canvas.height = windowHeight - 15;
     document.body.style.backgroundColor = "black";
-
+  
     // Create sound object
     sound = new killSound("Sounds/popSound.mp3");
 
@@ -164,14 +164,33 @@ function animate() {
     }
 
 
+     
     player.x += player.dx;
     player.y += player.dy;
 
-    if (player.x + playerSize >= windowWidth - 10) {
+    if (moveUp) {
+        player.dy = playerdxInc * (-1);
+    } else if (moveDown) {
+        player.dy = playerdyInc;
+    } else {
+        player.dy = 0;
+    }
+    if (moveRight) {
+        player.dx = 3;
+    } else if (moveLeft) {
+        player.dx = playerdxInc * (-1);
+    } else {
+        player.dx = 0;
+    }
+   
+
+    if (player.x + playerSize >= windowWidth - 15) {
+        player.dx = player.dx * -1;
+    } else {
         player.dx = 0;
     }
 
-    if (player.x <= 0) {
+    if (player.x <= 10) {
         player.dx = 0;
     }
 
@@ -183,20 +202,10 @@ function animate() {
         player.dy = 0;
     }
 
-    if (moveUp) {
-        player.dy = playerdxInc * (-1);
-    } else if (moveDown) {
-        player.dy = playerdyInc;
-    } else {
-        player.dy = 0;
-    }
-    if (moveRight) {
-        player.dx = playerdxInc;
-    } else if (moveLeft) {
-        player.dx = playerdxInc * (-1);
-    } else {
-        player.dx = 0;
-    }
+
+
+    
+    
 }
 
 // Cat Object 
@@ -278,8 +287,14 @@ function Player() {
                 playerFrame = 0;
             }
         }
+<<<<<<< HEAD
 
 
+=======
+        // console.log(`playerdx: ${this.dx}`, `playerdy: ${this.dy}`);
+        // console.log(`player.x: ${this.x}`, `player.y: ${this.y}`);
+    
+>>>>>>> 003c32e5e417c045d445ee8e49e95f4b151fc15f
     }
 
 }

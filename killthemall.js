@@ -287,16 +287,7 @@ function Player() {
                 playerFrame = 0;
             }
         }
-<<<<<<< HEAD
-
-
-=======
-        // console.log(`playerdx: ${this.dx}`, `playerdy: ${this.dy}`);
-        // console.log(`player.x: ${this.x}`, `player.y: ${this.y}`);
-    
->>>>>>> 003c32e5e417c045d445ee8e49e95f4b151fc15f
     }
-
 }
 
 // Give a random color

@@ -61,25 +61,25 @@ window.onload = function () {
     });
 
     document.onkeydown = function (e) {
-        if (e.key === "w") {
+        if (e.key === "w" || e.key === "ArrowUp") {
             moveUp = true;
-        } else if (e.key === "s") {
+        } else if (e.key === "s" || e.key === "ArrowDown") {
             moveDown = true;
-        } else if (e.key === "d") {
+        } else if (e.key === "d" || e.key === "ArrowRight") {
             moveRight = true;
-        } else if (e.key === "a") {
+        } else if (e.key === "a" || e.key === "ArrowLeft") {
             moveLeft = true;
         }
     }
 
     document.onkeyup = function (e) {
-        if (e.key === "w") {
+        if (e.key === "w" || e.key === "ArrowUp") {
             moveUp = false;
-        } else if (e.key === "s") {
+        } else if (e.key === "s" || e.key === "ArrowDown") {
             moveDown = false;
-        } else if (e.key === "d") {
+        } else if (e.key === "d" || e.key === "ArrowRight") {
             moveRight = false;
-        } else if (e.key === "a") {
+        } else if (e.key === "a" || e.key === "ArrowLeft") {
             moveLeft = false;
         }
     }
@@ -164,10 +164,11 @@ function animate() {
     }
 
 
-     
     player.x += player.dx;
     player.y += player.dy;
 
+     
+   
     if (moveUp) {
         player.dy = playerdxInc * (-1);
     } else if (moveDown) {
@@ -175,31 +176,30 @@ function animate() {
     } else {
         player.dy = 0;
     }
+
     if (moveRight) {
         player.dx = 3;
     } else if (moveLeft) {
         player.dx = playerdxInc * (-1);
+    
     } else {
         player.dx = 0;
     }
-   
 
     if (player.x + playerSize >= windowWidth - 15) {
-        player.dx = player.dx * -1;
-    } else {
-        player.dx = 0;
+        player.dx = (player.dx + 3) * -1;
     }
 
     if (player.x <= 10) {
-        player.dx = 0;
+        player.dx = (player.dx - 3) * -1;
     }
 
     if (player.y <= 10) {
-        player.dy = 0;
+        player.dy = (player.dy - 3) * -1;
     }
 
-    if (player.y + playerSize >= windowHeight - 15) {
-        player.dy = 0;
+    if (player.y + playerSize >= windowHeight - 35) {
+        player.dy = (player.dy + 3) * -1;
     }
 
 

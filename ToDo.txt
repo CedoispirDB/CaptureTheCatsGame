@@ -1,0 +1,22 @@
+For now:
+- Add new cat skins
+- Make storage with different cat displays 
+- Increase the world size
+- Decorate the environment 
+- Make better player skins
+    - Female and male
+- Make the menu resizeable 
+- Make options menu
+- Make storage menu
+- Make help menu
+- Figure it out how to have more than one js file
+    - Organize Code
+    - Create diffent animation functions
+- Get better sounds for the cats
+- Work in the player bounding limits
+- Work on the game's UI
+
+For later:
+- Figure it out how to save users storage
+- Figure it out how to put on a online site
+- Work on fps

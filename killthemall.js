@@ -2,10 +2,6 @@
 
 
 // Resize canvas
-window.addEventListener("resize", function () {
-    canvas.width = window.innerWidth - 15;
-    canvas.height = window.innerHeight - 15;
-});
 
 window.onload = function () {
   

@@ -2,7 +2,7 @@ import Cat from "/Src/Cat.js";
 import Player from "/Src/Player.js"
 import Sound from "/Src/Sounds.js"
 
-let player;
+let player; 
 let cat;
 let cats = [];
 let numberOfCats = 5;
@@ -23,6 +23,12 @@ var mouseY = 0;
 var gameControl = "mousedown";
 
 
+window.addEventListener("resize", function () {
+    canvas.width = window.innerWidth - 15;
+    canvas.height = window.innerHeight - 15;
+});
+
+
 export function initGame() {
     // Set up canvas
     canvas = document.createElement("canvas");
@@ -34,11 +40,13 @@ export function initGame() {
     canvas.height = windowHeight - 15;
     document.body.style.backgroundColor = "black";
 
+    console.log(windowWidth, windowHeight)
     sound = new Sound();
     sound.createAudio("Sounds/popSound.mp3");
-    console.log("first sound" + sound)
+    
     player = new Player(700, 200, 0, 0, ctx, windowWidth, windowHeight);
     player.createImage();
+
     cat = new Cat(50, ctx, windowWidth, windowHeight, sound, 50);
     // Set up the cats
     for (var i = 0; i < numberOfCats; i++) {
@@ -53,5 +61,6 @@ export function initGame() {
 function animate() {
     ctx.clearRect(0, 0, windowWidth, windowHeight)
     player.playerAnimation();
+    console.log(player.getX(), player.getY())
     cat.animateCat(cats, player.getX(), player.getY());
 }

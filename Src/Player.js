@@ -2,7 +2,7 @@
 var player;
 var playerSize = 50;
 var playerWidth = 140;
-var playerHeight = 220;
+var playerHeight = 240;
 var playerFrame = 0;
 var playerdxInc = 3;
 var playerdyInc = 3;
@@ -71,13 +71,13 @@ export default class Player {
             this.dx = 3;
         } else if (moveLeft) {
             this.dx = playerdxInc * (-1);
-
         } else {
             this.dx = 0;
         }
 
-        if (this.x + this >= this.windowWidth - 15) {
-            this.dx = (player.dx + 3) * -1;
+        //x = 796  y = 488
+        if (this.x >= this.windowWidth - 80) {
+            this.dx = (this.dx + 3) * -1;
         }
 
         if (this.x <= 10) {
@@ -88,7 +88,7 @@ export default class Player {
             this.dy = (this.dy - 3) * -1;
         }
 
-        if (this.y + this >= this.windowHeight - 35) {
+        if (this.y >= this.windowHeight - 80) {
             this.dy = (this.dy + 3) * -1;
         }
 
@@ -100,7 +100,7 @@ export default class Player {
 
     getY() {
         return this.y;
-        
+
     }
 
 

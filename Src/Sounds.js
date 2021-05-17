@@ -1,28 +1,27 @@
-let killSound;
+let captureSound;
 
 export default class Sound {
 
-    constructor(src) {
-        this.src = src;
+    constructor() {
     }
 
     // Create a sound - expect path to sound
     createAudio(src) {
-        killSound = document.createElement("audio");
-        killSound.src = src;
-        killSound.setAttribute("preload", "auto");
-        killSound.setAttribute("controls", "none");
+        captureSound = document.createElement("audio");
+        captureSound.src = src;
+        captureSound.setAttribute("preload", "auto");
+        captureSound.setAttribute("controls", "none");
     
-        killSound.style.display = "none";
+        captureSound.style.display = "none";
     
-        document.body.appendChild(this.killSound);
+        document.body.appendChild(captureSound);
     }
 
     play() {
-        killSound.play();
+        captureSound.play();
     }
     stop() {
-        killSound.pause();
+        captureSound.pause();
     }
 
 }

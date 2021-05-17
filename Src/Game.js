@@ -35,7 +35,8 @@ export function initGame() {
     canvas.height = windowHeight - 15;
     document.body.style.backgroundColor = "black";
 
-    sound = new Sound("Sounds/popSound.mp3");
+    sound = new Sound();
+    sound.createAudio("Sounds/popSound.mp3");
     console.log("first sound" + sound)
     player = new Player(700, 200, 0, 0, ctx, windowWidth, windowHeight);
     player.createImage();

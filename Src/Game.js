@@ -1,6 +1,5 @@
 import Cat from "/Src/Cat.js";
 import Player from "/Src/Player.js"
-// import { animateCat } from "/Src/Cat.js"
 import Sound from "/Src/Sounds.js"
 
 let player;

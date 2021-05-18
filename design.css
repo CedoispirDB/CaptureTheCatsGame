@@ -1,8 +1,9 @@
 :root {
-    --left: 42%;
-    --width: 20%;
-    --heigth: 10%;
+    --left: 37%;
+    --width: 27%;
+    --heigth: 13%;
 }
+
 
 
 body {
@@ -55,7 +56,7 @@ h1 {
     border: 2px solid black;
     font-size: 1.5em;
     font-weight: bold;
-    top: 20%;
+    top: 16%;
     text-align: center;
 }
 
@@ -70,7 +71,7 @@ h1 {
     border: 2px solid black;
     font-size: 1.5em;
     font-weight: bold;
-    top: 32%;
+    top: 31%;
     text-align: center;
 }
 
@@ -85,7 +86,7 @@ h1 {
     border: 2px solid black;
     font-size: 1.5em;
     font-weight: bold;
-    top: 44%;
+    top: 46%;
     text-align: center;
 }
 
@@ -100,12 +101,64 @@ h1 {
     border: 2px solid black;
     font-size: 1.5em;
     font-weight: bold;
-    top: 56%;
+    top: 61%;
     text-align: center;
 }
 
-#playButton:hover, #helpButton:hover, #optionsButton:hover, #storageButton:hover{
+
+#backButton {
+    outline: none;
+    color: black;
+    background: rgb(159, 226, 191);
+    position: absolute;
+    left: var(--left);
+    width: var(--width);
+    height: var(--heigth);
+    border: 2px solid black;
+    font-size: 1.5em;
+    font-weight: bold;
+    top: 60%;
+    text-align: center;
+}
+
+#playButton:hover, #helpButton:hover, #optionsButton:hover, #storageButton:hover, #backButton:hover{
     background-color: rgb(255,255,255, 0.7);
 	color: black;
     
+}
+
+
+#helpText, #optionsText {
+    font-size: 2em;
+    background-color: rgb(159, 226, 191);
+    padding: 2%;
+    border: 3px solid black;
+}
+
+.storage-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 3em;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,40%);
+    width: 50%;
+    font-size: 18px;
+
+}
+
+.slots {
+    background: rgb(159, 226, 191);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    position: relative;
+    text-align: center;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

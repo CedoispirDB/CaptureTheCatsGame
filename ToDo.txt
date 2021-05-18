@@ -1,5 +1,6 @@
 For now:
 - Add new cat skins
+- Use space bar to pick up the cat 
 - Make storage with different cat displays 
 - Increase the world size
 - Decorate the environment 
@@ -7,11 +8,8 @@ For now:
     - Female and male
 - Make the menu resizeable 
 - Make options menu
+    - Add options
 - Make storage menu
-- Make help menu
-- Figure it out how to have more than one js file
-    - Organize Code
-    - Create diffent animation functions
 - Get better sounds for the cats
 - Work in the player bounding limits
 - Work on the game's UI

@@ -1,5 +1,7 @@
 For now:
 - Add new cat skins
+    - Rare skins
+    - Legendary 
 - Use space bar to pick up the cat 
 - Make storage with different cat displays 
 - Increase the world size

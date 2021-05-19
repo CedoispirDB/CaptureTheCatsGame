@@ -190,3 +190,11 @@ h1 {
     justify-content: center;
     align-items: center;
 }
+
+img {
+    position: absolute;
+    width: 60px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-43%, -50%);
+}

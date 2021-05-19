@@ -1,3 +1,5 @@
+import { walkMovement } from "/Src/Cat.js"
+
 const objects = [];
 
 export default class Inventory {
@@ -24,10 +26,23 @@ export default class Inventory {
     }
 
     addObject(obj) {
+        let slots  = document.getElementsByClassName("inventory-slot");
         if (objects.length < 4) {
             console.log("Received Object: " + obj.getId())
             objects.push(obj)
-        
+
+            if(!(slots[0].hasChildNodes())){
+
+            } else if(!(slots[1].hasChildNodes())) {
+
+            } if(!(slots[2].hasChildNodes())) {
+
+            } if(!(slots[3].hasChildNodes())) {
+
+            } if(!(slots[4].hasChildNodes())) {
+
+            }
+         
         }
     }
 

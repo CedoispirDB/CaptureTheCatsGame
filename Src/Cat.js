@@ -92,19 +92,12 @@ export default class Cat {
     }
 
 
-    // setId() {
-    //     console.log("gettinf in here")
-    //     if (this.type === "simple") {
-    //         id = "simpleCat" + this.number + randomColor();
-    //     } else if (this.type === "rare") {
-    //         id = "rareCat" + this.number + randomColor();
-    //     } else if (this.type === "legendary") {
-    //         id = "legendaryCat" + this.number + randomColor();
-    //     }
-    // }
-
     getId() {
         return this.id;
+    }
+
+    getImg() {
+        
     }
 
 }
@@ -184,7 +177,7 @@ let randomColor = () => {
     return colorOptions[Math.floor(Math.random() * colorOptions.length)];
 } 
 
-function walkMovement(catX, catY, catW, catH ,catDx, imgYPos, ctx, frame){
+export function walkMovement(catX, catY, catW, catH ,catDx, imgYPos, ctx, frame){
     if (catDx < 0) 
     {
         // console.log("is going left")

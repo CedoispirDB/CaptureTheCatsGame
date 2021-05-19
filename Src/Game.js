@@ -1,8 +1,13 @@
 import Cat from "/Src/Cat.js";
 import Player from "/Src/Player.js"
 import Sound from "/Src/Sounds.js"
+import Inventory from "/Src/Inventory.js"
+
 
 let player; 
+
+let inventory;
+
 let cat;
 let cats = [];
 let numberOfCats = 5;
@@ -40,18 +45,24 @@ export function initGame() {
     canvas.height = windowHeight - 15;
     document.body.style.backgroundColor = "black";
 
-    console.log(windowWidth, windowHeight)
     sound = new Sound();
     sound.createAudio("Sounds/popSound.mp3");
     
     player = new Player(700, 200, 0, 0, ctx, windowWidth, windowHeight);
     player.createImage();
 
+    inventory = new Inventory();
+    inventory.drawInventory();
+
     cat = new Cat(50, ctx, windowWidth, windowHeight, sound, 50);
     // Set up the cats
     for (var i = 0; i < numberOfCats; i++) {
         cats.push(new Cat(50, ctx, windowWidth, windowHeight, sound, 50));
     }     
+    for (var i = 0; i < numberOfCats; i++) {
+        console.log("cat[" + i + "]: " + cats[i])
+    }
+
     
 
     setInterval(animate, 1000/300);
@@ -61,6 +72,5 @@ export function initGame() {
 function animate() {
     ctx.clearRect(0, 0, windowWidth, windowHeight)
     player.playerAnimation();
-    console.log(player.getX(), player.getY())
     cat.animateCat(cats, player.getX(), player.getY());
 }

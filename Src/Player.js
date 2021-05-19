@@ -103,6 +103,10 @@ export default class Player {
 
     }
 
+    id() {
+        return "player";
+    }
+
 
 }
 

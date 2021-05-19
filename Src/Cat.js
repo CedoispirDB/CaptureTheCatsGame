@@ -9,7 +9,7 @@ let ctx;
 // Cat Object 
 export default class Cat {
 
-    constructor(catSize, ctx, windowWidth, windowHeight, sound, playerSize) {
+    constructor(catSize, ctx, windowWidth, windowHeight, sound, playerSize, inventory , type) {
         // Set the cat's width and height
         this.enemyWidth = catSize;
         this.enemyHeight = catSize;
@@ -31,6 +31,10 @@ export default class Cat {
         this.sound = sound;
   
         this.playerSize = playerSize;
+
+        this.inventory = inventory;
+
+        this.type = type;
     }
 
    
@@ -61,19 +65,21 @@ export default class Cat {
                 cat[i].dy = cat[i].dy * (-1);
             }
     
-            // Kill cats with mouse, future game mode
-    
-            // if (mouseX > cat[i].x && mouseX < cat[i].x + catSize &&
-            //     mouseY > cat[i].y && mouseY < cat[i].y + catSize) {
-            //     cat[i].radius += 5;
-            //     cat[i].kill();
-            //     sound.play();
-            // }
-    
+           
             checkCollision(cat[i].x, cat[i].y ,this.catSize, this.catSize, playerX, playerY, this.playerSize, 70, cat[i], this.sound, cat)
             
         }
         
+    }
+
+    id() {
+        if (this.type === "simple") {
+            return "simpleCat";
+        } else if (this.type === "rare") {
+            return "rareCat";
+        } else if (this.type === "legendary") {
+            return "legendaryCat";
+        }
     }
 
 }
@@ -81,6 +87,7 @@ export default class Cat {
 // Draw the cat 
 function update(cat, ctx) {
     // Get Cat image
+
     image = new Image();
     image.src = "Images/SpriteSheet.png";
 

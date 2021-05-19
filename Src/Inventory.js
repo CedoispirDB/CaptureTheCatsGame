@@ -25,7 +25,9 @@ export default class Inventory {
 
     addObject(obj) {
         if (objects.length < 4) {
+            console.log("Received Object: " + obj.getId())
             objects.push(obj)
+        
         }
     }
 
@@ -33,6 +35,10 @@ export default class Inventory {
         objects.splice(objects[obj], 1);
     }
 
-    
+    inventorySize() {
+        return objects.length;
+    }
+
+
 
 }

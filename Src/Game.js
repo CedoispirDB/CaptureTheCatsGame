@@ -54,18 +54,19 @@ export function initGame() {
     inventory = new Inventory();
     inventory.drawInventory();
 
-    cat = new Cat(50, ctx, windowWidth, windowHeight, sound, 50);
+    cat = new Cat(50, ctx, windowWidth, windowHeight, sound, 50, inventory, "simple", 0);
     // Set up the cats
     for (var i = 0; i < numberOfCats; i++) {
-        cats.push(new Cat(50, ctx, windowWidth, windowHeight, sound, 50));
+        cats.push(new Cat(50, ctx, windowWidth, windowHeight, sound, 50, inventory, "simple", i));
     }     
-    for (var i = 0; i < numberOfCats; i++) {
-        console.log("cat[" + i + "]: " + cats[i])
-    }
+    // for (var i = 0; i < numberOfCats; i++) {
+    //     console.log("cat[" + i + "].id: " + cats[i].getId())
+    //     console.log("cat number " + cats[i].getNumber())
+    // }
 
     
 
-    setInterval(animate, 1000/300);
+    setInterval(animate, 1000 / 300);
 
 }
 
@@ -73,4 +74,5 @@ function animate() {
     ctx.clearRect(0, 0, windowWidth, windowHeight)
     player.playerAnimation();
     cat.animateCat(cats, player.getX(), player.getY());
+    
 }

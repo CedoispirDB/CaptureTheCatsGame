@@ -1,15 +1,21 @@
 var catFrame = 1;
 // Image measurements 
-var catWidth = 175;
-var catHeight = 191;
+// var catWidth = 175;
+// var catHeight = 191;
+var catWidth = 105;
+var catHeight = 114;
+
+
 
 let image;
 let ctx;
 
+let id;
+
 // Cat Object 
 export default class Cat {
 
-    constructor(catSize, ctx, windowWidth, windowHeight, sound, playerSize, inventory , type) {
+    constructor(catSize, ctx, windowWidth, windowHeight, sound, playerSize, inventory , type, number) {
         // Set the cat's width and height
         this.enemyWidth = catSize;
         this.enemyHeight = catSize;
@@ -35,10 +41,17 @@ export default class Cat {
         this.inventory = inventory;
 
         this.type = type;
+
+        this.number = number;
+
+        this.id = this.type + this.number + randomColor();
+
     }
 
-   
-   
+    getNumber() {
+        return this.number;
+    }
+
 
 
     animateCat(cat, playerX, playerY) {
@@ -66,53 +79,62 @@ export default class Cat {
             }
     
            
-            checkCollision(cat[i].x, cat[i].y ,this.catSize, this.catSize, playerX, playerY, this.playerSize, 70, cat[i], this.sound, cat)
+            checkCollision(cat[i].x, cat[i].y ,this.catSize, this.catSize,
+                playerX, playerY, this.playerSize, 70, cat[i],
+                this.sound, cat, this.inventory)
+            
+            // for (var i = 0; i < 5; i++) {
+            //     console.log("cat[" + i + "].id: " + cat[i].getId())
+            // }
             
         }
         
     }
 
-    id() {
-        if (this.type === "simple") {
-            return "simpleCat";
-        } else if (this.type === "rare") {
-            return "rareCat";
-        } else if (this.type === "legendary") {
-            return "legendaryCat";
-        }
+
+    // setId() {
+    //     console.log("gettinf in here")
+    //     if (this.type === "simple") {
+    //         id = "simpleCat" + this.number + randomColor();
+    //     } else if (this.type === "rare") {
+    //         id = "rareCat" + this.number + randomColor();
+    //     } else if (this.type === "legendary") {
+    //         id = "legendaryCat" + this.number + randomColor();
+    //     }
+    // }
+
+    getId() {
+        return this.id;
     }
 
 }
 
 // Draw the cat 
 function update(cat, ctx) {
-    // Get Cat image
+    // Get Cat image image = new Image();
 
-    image = new Image();
-    image.src = "Images/SpriteSheet.png";
+    image  =new Image();
+    image.src = "Images/SpriteSheetBig.png";
 
+  
+    if (cat.getId().includes("red")) {
+        walkMovement(cat.x, cat.y, cat.enemyWidth, cat.enemyHeight,  cat.dx, 0 , ctx, catFrame)
+    } else if (cat.getId().includes("blue")) {
+        walkMovement(cat.x, cat.y, cat.enemyWidth, cat.enemyHeight,  cat.dx, 228 , ctx, catFrame)
 
-    if (cat.dx < 0) {
-        ctx.drawImage(image, catFrame * catWidth, 0,
-            catWidth, catHeight,
-            cat.x, cat.y,
-            cat.enemyWidth, cat.enemyHeight);
-        if (catFrame < 3) {
-            catFrame++;
-        } else {
-            catFrame = 1;
-        }
-    } else if (cat.dx > 0) {
-        cat.ctx.drawImage(image, catFrame * catWidth, 191,
-            catWidth, catHeight,
-            cat.x, cat.y,
-            cat.enemyWidth, cat.enemyHeight);
-        if (catFrame < 3) {
-            catFrame++;
-        } else {
-            catFrame = 1;
-        }
+    } else if (cat.getId().includes("green")) {
+        walkMovement(cat.x, cat.y, cat.enemyWidth, cat.enemyHeight,  cat.dx, 456 , ctx, catFrame)
+
+    } else {
+        console.log(cat.getId() + " is not a valid id (Cat.js - line 106)");
     }
+    if (catFrame < 3) {
+        catFrame++;
+    } else {
+        catFrame = 1;
+    }
+
+    
 
 }
 
@@ -143,12 +165,48 @@ function giveYPOS(height, windowHeight) {
 }
 
 
-function checkCollision(catX, catY, catW, catH, pX, pY, pW, pH, cat, sound, cats) {
+function checkCollision(catX, catY, catW, catH, pX, pY, pW, pH, cat, sound, cats, inventory) {
 
     if (catX + catW >= pX && pX + pW >= catX && catY + catH >= pY & catY <= pY + pH) {
         // Make the cat dissapear 
-        cats.splice(cats.indexOf(cat), 1);
-        sound.play();
+        // if (inventory.inventorySize() < 4) {
+        //     cats.splice(cats.indexOf(cat), 1);
+        //     sound.play();
+        //     inventory.addObject(cat);
+        // }
     
+    }
+}
+
+let randomColor = () => {
+    // let colorOptions = ["red", "green", "blue", "bianca", "violet"]
+    let colorOptions = ["red", "green", "blue"];
+    return colorOptions[Math.floor(Math.random() * colorOptions.length)];
+} 
+
+function walkMovement(catX, catY, catW, catH ,catDx, imgYPos, ctx, frame){
+    if (catDx < 0) 
+    {
+        // console.log("is going left")
+
+        ctx.drawImage(image, frame * catWidth, imgYPos,
+            catWidth, catHeight,
+            catX, catY,
+            catW,  catH);
+       
+    } else if (catDx > 0) {
+        //191
+        // console.log("is going right")
+        ctx.drawImage(image, frame * catWidth, imgYPos + catHeight,
+            catWidth, catHeight,
+            catX, catY,
+            catW,  catH);
+    
+    } else if (catDx === 0 ) {
+        ctx.drawImage(image, 0, imgYPos,
+        catWidth, catHeight,
+        catX, catY,
+        catW,  catH);
+
     }
 }

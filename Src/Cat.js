@@ -48,11 +48,6 @@ export default class Cat {
 
     }
 
-    getNumber() {
-        return this.number;
-    }
-
-
 
     animateCat(cat, playerX, playerY) {
 
@@ -96,9 +91,12 @@ export default class Cat {
         return this.id;
     }
 
-    getImg() {
-        
+
+
+    getNumber() {
+        return this.number;
     }
+  
 
 }
 
@@ -109,7 +107,6 @@ function update(cat, ctx) {
     image  =new Image();
     image.src = "Images/SpriteSheetBig.png";
 
-  
     if (cat.getId().includes("red")) {
         walkMovement(cat.x, cat.y, cat.enemyWidth, cat.enemyHeight,  cat.dx, 0 , ctx, catFrame)
     } else if (cat.getId().includes("blue")) {
@@ -162,11 +159,11 @@ function checkCollision(catX, catY, catW, catH, pX, pY, pW, pH, cat, sound, cats
 
     if (catX + catW >= pX && pX + pW >= catX && catY + catH >= pY & catY <= pY + pH) {
         // Make the cat dissapear 
-        // if (inventory.inventorySize() < 4) {
-        //     cats.splice(cats.indexOf(cat), 1);
-        //     sound.play();
-        //     inventory.addObject(cat);
-        // }
+        if (inventory.inventorySize() < 4) {
+            cats.splice(cats.indexOf(cat), 1);
+            sound.play();
+            inventory.addObject(cat);
+        }
     
     }
 }
@@ -178,8 +175,7 @@ let randomColor = () => {
 } 
 
 export function walkMovement(catX, catY, catW, catH ,catDx, imgYPos, ctx, frame){
-    if (catDx < 0) 
-    {
+    if (catDx < 0) {
         // console.log("is going left")
 
         ctx.drawImage(image, frame * catWidth, imgYPos,

@@ -74,5 +74,4 @@ function animate() {
     ctx.clearRect(0, 0, windowWidth, windowHeight)
     player.playerAnimation();
     cat.animateCat(cats, player.getX(), player.getY());
-    
 }

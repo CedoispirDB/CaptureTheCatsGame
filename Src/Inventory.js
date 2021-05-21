@@ -1,4 +1,4 @@
-import { walkMovement } from "/Src/Cat.js"
+import Cat from "/Src/Cat.js"
 
 const objects = [];
 
@@ -21,28 +21,39 @@ export default class Inventory {
             let provSlot = document.createElement("div");
             div.appendChild(provSlot);
             provSlot.setAttribute("class", "inventory-slot")
-        }
-        
+        }        
     }
 
     addObject(obj) {
-        let slots  = document.getElementsByClassName("inventory-slot");
+        let slots = document.getElementsByClassName("inventory-slot");
+        let image = document.createElement("img");
+        let imgSrc;
         if (objects.length < 4) {
             console.log("Received Object: " + obj.getId())
             objects.push(obj)
-
-            if(!(slots[0].hasChildNodes())){
-
-            } else if(!(slots[1].hasChildNodes())) {
-
-            } if(!(slots[2].hasChildNodes())) {
-
-            } if(!(slots[3].hasChildNodes())) {
-
-            } if(!(slots[4].hasChildNodes())) {
-
+            if (obj.getId().includes("simple")) {
+                if (obj.getId().includes("red")) {
+                    imgSrc = "/Images/InventoryImages/CatRed.png";
+                } else if (obj.getId().includes("green")) {
+                    imgSrc = "/Images/InventoryImages/CatGreen.png";
+                } else if (obj.getId().includes("blue")) {
+                    imgSrc = "/Images/InventoryImages/CatBlue.png";
+                }
             }
-         
+
+            image.setAttribute("src", imgSrc);
+
+            if (!(slots[0].hasChildNodes())) {
+                slots[0].appendChild(image);
+            } else if (!(slots[1].hasChildNodes())) {
+                slots[1].appendChild(image);
+            } else if (!(slots[2].hasChildNodes())) {
+                slots[2].appendChild(image);
+            } else if (!(slots[3].hasChildNodes())) {
+                slots[3].appendChild(image);
+            }
+
+          
         }
     }
 
@@ -53,7 +64,4 @@ export default class Inventory {
     inventorySize() {
         return objects.length;
     }
-
-
-
 }

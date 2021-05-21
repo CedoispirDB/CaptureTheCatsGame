@@ -48,8 +48,7 @@ export function initGame() {
     sound = new Sound();
     sound.createAudio("Sounds/popSound.mp3");
     
-    player = new Player(700, 200, 0, 0, ctx, windowWidth, windowHeight);
-    player.createImage();
+  
 
     inventory = new Inventory();
     inventory.drawInventory();
@@ -63,8 +62,10 @@ export function initGame() {
     //     console.log("cat[" + i + "].id: " + cats[i].getId())
     //     console.log("cat number " + cats[i].getNumber())
     // }
+    player = new Player(700, 200, 0, 0, ctx, windowWidth, windowHeight, cats);
+    player.createImage();
 
-    
+   
 
     setInterval(animate, 1000 / 300);
 
@@ -73,5 +74,7 @@ export function initGame() {
 function animate() {
     ctx.clearRect(0, 0, windowWidth, windowHeight)
     player.playerAnimation();
-    cat.animateCat(cats, player.getX(), player.getY());
+    cat.animateCat(cats);
+    
+
 }

@@ -2,7 +2,6 @@ For now:
 - Add new cat skins
     - Rare skins
     - Legendary 
-- Use space bar to pick up the cat 
 - Make storage with different cat displays 
 - Increase the world size
 - Decorate the environment 
@@ -10,10 +9,13 @@ For now:
     - Female and male
 - Make the menu resizeable 
 - Make options menu
-    - Add options
+    - Make option to choose between looking directions
 - Get better sounds for the cats
 - Work in the player bounding limits
 - Work on the game's UI
+- Inventory 
+    - Be able to remove itens from Inventory
+    - Two options remove the last added or choose with mouse
 
 For later:
 - Figure it out how to save users storage

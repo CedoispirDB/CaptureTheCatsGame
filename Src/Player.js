@@ -21,7 +21,7 @@ export default class Player {
 
     
     // Set player initial position and velocity
-    constructor(x, y, dx, dy, ctx, windowWidth, windowHeight) {
+    constructor(x, y, dx, dy, ctx, windowWidth, windowHeight, cats) {
         this.x = x;
         this.y = y;
         this.dx = dx;
@@ -29,6 +29,7 @@ export default class Player {
         this.ctx = ctx;
         this.windowWidth = windowWidth
         this.windowHeight = windowHeight;
+        this.cats = cats;
 
     }
 
@@ -39,7 +40,7 @@ export default class Player {
     }
 
     playerAnimation() {
-        playerMove();
+        playerMove(this.cats, this.x, this.y);
         this.ctx.drawImage(image, playerFrame * playerWidth, 0,
             playerWidth, playerHeight,
             this.x, this.y,
@@ -110,7 +111,7 @@ export default class Player {
 
 }
 
-function playerMove() {
+function playerMove(cats,x ,y) {
     // Key input 
     document.onkeydown = function (e) {
         if (e.key === "w" || e.key === "ArrowUp") {
@@ -121,6 +122,12 @@ function playerMove() {
             moveRight = true;
         } else if (e.key === "a" || e.key === "ArrowLeft") {
             moveLeft = true;
+        }
+        if (e.key === " ") {
+            console.log("space")
+            for (var i = 0; i < cats.length; i++) {
+                cats[i].checkCollision(x, y, cats, cats[i])
+            }   
         }
     }
 
@@ -135,6 +142,9 @@ function playerMove() {
             moveLeft = false;
         }
     }
+
+
+
 }
 
 

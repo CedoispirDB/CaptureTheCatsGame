@@ -15,7 +15,8 @@ let id;
 // Cat Object 
 export default class Cat {
 
-    constructor(catSize, ctx, windowWidth, windowHeight, sound, playerSize, inventory , type, number) {
+    constructor(catSize, ctx, windowWidth, windowHeight, sound,
+                     playerSize, inventory , type, number) {
         // Set the cat's width and height
         this.enemyWidth = catSize;
         this.enemyHeight = catSize;
@@ -28,8 +29,8 @@ export default class Cat {
         this.y = giveYPOS(this.enemyHeight, this.windowHeight);
         // this.x = 500;
         // this.y =  300;
-        this.dx = 1;
-        this.dy = 1;
+        this.dx = 0;
+        this.dy = 0;
 
         this.ctx = ctx;
 
@@ -45,11 +46,13 @@ export default class Cat {
         this.number = number;
 
         this.id = this.type + this.number + randomColor();
+        
+    
 
     }
 
 
-    animateCat(cat, playerX, playerY) {
+    animateCat(cat) {
 
         for (var i = 0; i < cat.length; i++) {
             update(cat[i], this.ctx);
@@ -74,9 +77,10 @@ export default class Cat {
             }
     
            
-            checkCollision(cat[i].x, cat[i].y ,this.catSize, this.catSize,
-                playerX, playerY, this.playerSize, 70, cat[i],
-                this.sound, cat, this.inventory)
+           
+                // checkCollision(cat[i].x, cat[i].y ,this.catSize, this.catSize,
+                //     playerX, playerY, this.playerSize, 70, cat[i],
+                //     this.sound, cat, this.inventory)
             
             // for (var i = 0; i < 5; i++) {
             //     console.log("cat[" + i + "].id: " + cat[i].getId())
@@ -97,6 +101,17 @@ export default class Cat {
         return this.number;
     }
   
+    checkCollision(playerX, playerY, cats, cat) {
+        if (this.x + catWidth >= playerX && playerX + this.playerSize >= this.x && this.y + this.catSize >= playerY & this.y <= playerY + 70) {
+            // Make the cat dissapear 
+            if (this.inventory.inventorySize() < 4) {
+                cats.splice(cats.indexOf(cat), 1);
+                this.sound.play();
+                this.inventory.addObject(cat);
+            }
+        
+        }   
+    }
 
 }
 
@@ -156,6 +171,7 @@ function giveYPOS(height, windowHeight) {
 
 
 function checkCollision(catX, catY, catW, catH, pX, pY, pW, pH, cat, sound, cats, inventory) {
+   
 
     if (catX + catW >= pX && pX + pW >= catX && catY + catH >= pY & catY <= pY + pH) {
         // Make the cat dissapear 
@@ -165,7 +181,7 @@ function checkCollision(catX, catY, catW, catH, pX, pY, pW, pH, cat, sound, cats
             inventory.addObject(cat);
         }
     
-    }
+    }   
 }
 
 let randomColor = () => {
